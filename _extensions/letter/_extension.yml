@@ -8,8 +8,8 @@ contributes:
       documentclass: letter
       pdf-engine: pdflatex
       date: today
-      date-format: "dddd, D MMM, YYYY"
-      papersize: a4
+      date-format: "dddd, MMMM Do, YYYY"
+      papersize: letterpaper
       fontsize: 11pt
       geometry:
         - "top=2cm"

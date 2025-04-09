@@ -20,37 +20,36 @@
 
 \makeatletter
 % Define the CAST page style
-\def\ps@CAST{%  <--- RENAMED from 'monash'
+\def\ps@CAST{%
 \begin{textblock}{4}(2,1) % Position for CAST logo
-\includegraphics[height=1.5cm]{CAST_scripted_PRIMARY} % This is the standard college banner
+\includegraphics[height=1.5cm]{CAST_scripted_PRIMARY}
 \end{textblock}%
-% --- Commented out Monash Business School logo ---
+% --- Spot for square logo ---
 %\begin{textblock}{4}(17,1)
 %\includegraphics[height=1.5cm]{MBSportrait}
 %\end{textblock}%
-% --- Footer block ---
-\begin{textblock}{10}(1.2,26.4) % Position for footer text
+
+% --- Footer block --- Adjust Vertical position for Letter Paper ---
+\begin{textblock}{10}(1.2,24.4) % *** CHANGED V from 26.4 to 24.4 ***
 {\fontsize{9}{8}\selectfont\sffamily\color[gray]{0.4}%
 \begin{tabular}{@{}l@{}}
 % --- Quarto variables for author details ---
 \textbf{$for(authors)$$it.name.literal$$endfor$}, $if(qualifications)$$qualifications$$endif$\\
 $if(position)$$position$\\$endif$
 % CAST default info for CIIO
-Cyber, Intelligence, \& Information Operations \\ % e.g., Department of Cyber Operations
+Cyber, Intelligence, \& Information Operations \\
 College of Applied Science and Technology \\
 University of Arizona \\
-888 N Euclid Ave, Suite 123, Tucson, AZ 85721 \\ % e.g. 1140 N Colombo Ave, Sierra Vista, AZ 85635 (Check correct address for letters)
+888 N Euclid Ave, Suite 123, Tucson, AZ 85721 \\
 \\[0.15cm] % Space before contact info
 % --- Quarto variables for contact ---
 $if(email)$\faicon{envelope} $email$\quad$endif$
 $if(phone)$\faicon{phone} $phone$\quad$endif$
 $if(www)$\faicon{home} $www$$endif$\\[0.1cm]
-% Space to add miscellaneous info like codes. Example:
-% ABN: 12 377 614 012\quad CRICOS Provider Number: 00008C
 \end{tabular}}
 \end{textblock}%
 % --- Add accreditation logos if desired. Examples: ---
-%\begin{textblock}{7}(12.7,28.2)\hfill
+%\begin{textblock}{7}(12.7,28.2)\hfill % <-- Also adjust V here if uncommented
 %\includegraphics[height=0.6cm]{AACSB}~~~
 %\includegraphics[height=0.6cm]{EQUIS}~~~
 %\includegraphics[height=0.6cm]{AMBA}
@@ -61,7 +60,7 @@ $if(www)$\faicon{home} $www$$endif$\\[0.1cm]
 % Now use the CAST definition
 \@ifundefined{opening}{}{%
 \renewcommand*{\opening}[1]{\thispagestyle{CAST}%
-  \enlargethispage*{-2cm} % Adjust page height if needed
+%  \enlargethispage*{-2cm} % *** REMOVED this line ***
    \vspace*{1.2cm}{\@date\par}% Space for date
   \vspace{2\parskip}% Space before recipient
   {\raggedright \toname \\ \toaddress \par}% Recipient details

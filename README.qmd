@@ -30,12 +30,12 @@ quarto_render(input = here("template.qmd"))
 # Use here() again for the system command
 system(sprintf("sed -i 's/^signature/#signature/' %s", shQuote(here("template.qmd"))))
 
-# Use here() for each file to be deleted
+# Files to be deleted
 fs::file_delete(c(
-  here("AACSB.png"),
-  here("AMBA.png"),
-  here("EQUIS.png"),
-  here("MBSportrait.jpg"),
+  #here("AACSB.png"),
+  #here("AMBA.png"),
+  #here("EQUIS.png"),
+  #here("MBSportrait.jpg"),
   here("CAST_scripted_PRIMARY.png"),
   here("sigfile.png")
 ))

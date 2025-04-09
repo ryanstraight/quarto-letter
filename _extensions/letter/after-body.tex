@@ -5,14 +5,19 @@ $if(signature)$
 $endif$
 }
 $endif$
-\vfill
+
+$if(ps)$
+\vspace{\baselineskip} % Add a line of space before the PS
+\ps{$ps$}             % Place the PS here, BEFORE \vfill
+$endif$
+
+\vfill                  % \vfill now pushes encl/cc down
+
 $if(encl)$
-\encl{$for(encl)$$encl$$sep$\\$endfor$}
+\encl{$for(encl)$$encl$$sep$\\$endfor$} % encl stays at the bottom
 $endif$
 $if(cc)$
-\cc{$for(cc)$$cc$$sep$\\$endfor$}
+\cc{$for(cc)$$cc$$sep$\\$endfor$}     % cc stays at the bottom
 $endif$
-$if(ps)$
-\ps{$ps$}
-$endif$
+
 \end{letter}
