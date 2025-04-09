@@ -10,25 +10,54 @@ format: gfm
 library(tidyverse)
 library(quarto)
 library(magick)
+library(here)
 
 # Render template
-fs::file_copy("_extensions/letter/sigfile.png", "sigfile.png", overwrite = TRUE)
-system("sed -i 's/^#signature/signature/' template.qmd")
-quarto_render(input = "template.qmd")
-system("sed -i 's/^signature/#signature/' template.qmd")
-fs::file_delete(c("AACSB.png","AMBA.png","EQUIS.png","MBSportrait.jpg","monash2.png","sigfile.png"))
+# Use here() to construct paths relative to the project root
+fs::file_copy(
+  here("_extensions", "letter", "sigfile.png"),
+  here("sigfile.png"),
+  overwrite = TRUE
+)
+
+# Use here() to specify the file for the system command
+# Using sprintf and shQuote for safer path handling in shell commands
+system(sprintf("sed -i 's/^#signature/signature/' %s", shQuote(here("template.qmd"))))
+
+# Use here() for the quarto input file
+quarto_render(input = here("template.qmd"))
+
+# Use here() again for the system command
+system(sprintf("sed -i 's/^signature/#signature/' %s", shQuote(here("template.qmd"))))
+
+# Use here() for each file to be deleted
+fs::file_delete(c(
+  here("AACSB.png"),
+  here("AMBA.png"),
+  here("EQUIS.png"),
+  here("MBSportrait.jpg"),
+  here("CAST_scripted_PRIMARY.png"),
+  here("sigfile.png")
+))
+
 # Convert rendered PDF to PNG
-image_read_pdf("template.pdf", pages = 1) |>
+# Use here() for the input PDF path
+image_read_pdf(here("template.pdf"), pages = 1) |>
   image_montage(geometry = "x1000+25+35", tile = 1, bg = "grey92", shadow = TRUE) |>
   image_convert(format = "png") |>
-  image_write("examples/template.png")
+  # Use here() for the output PNG path
+  image_write(here("examples", "template.png"))
+
 # Move pdf to examples folder
-fs::file_move("template.pdf", "examples/template.pdf")
+# Use here() for both source and destination paths
+fs::file_move(here("template.pdf"), here("examples", "template.pdf"))
 ```
 
-# Monash Letter Format Template
+# CAST Letter Format Template
 
-This is a Quarto template that assists you in creating a letter on Monash University letterhead
+> Originally from the [Monash Quarto Letter](https://github.com/quarto-monash/letter)
+
+This is a Quarto template that assists you in creating a letter on letterhead for the University of Arizona's College of Applied Science and Technology
 
 ## Creating a new letter
 
@@ -36,7 +65,7 @@ You can use this as a template to create a letter.
 To do this, use the following command:
 
 ```bash
-quarto use template quarto-monash/letter
+quarto use template ryanstraight/quarto-letter
 ```
 
 This will install the extension and create an example qmd file that you can use as a starting place for your letter.
@@ -47,7 +76,7 @@ You may also use this format with an existing Quarto project or document.
 From the quarto project or document directory, run the following command to install this format:
 
 ```bash
-quarto install extension quarto-monash/letter
+quarto install extension ryanstraight/quarto-letter
 ```
 
 ## Example
