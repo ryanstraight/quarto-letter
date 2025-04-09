@@ -1,8 +1,17 @@
-% Fonts
-\usepackage{bera,fontawesome}
-\usepackage[charter]{mathdesign}
-\usepackage[lf,t]{FiraSans}
-\usepackage[scale=0.9]{sourcecodepro}
+% Icons (Keep if needed)
+\usepackage{fontawesome}
+
+% Main Text Font (Cochineal) because it's gorgeous
+\usepackage{cochineal} % Sets Cochineal as the main text font
+
+% Math Font (Using newtxmath - works well with Cochineal)
+\usepackage{newtxmath} % Provides math fonts (common pairing)
+
+% Sans Serif Font (Keeping Fira Sans for \sffamily)
+\usepackage[lf,t]{FiraSans} % Use Fira Sans for sans-serif sections
+
+% Monospace Font (Keeping Source Code Pro for \ttfamily)
+\usepackage[scale=0.9]{sourcecodepro} % Use Source Code Pro for monospace/code
 
 % Letterhead
 \usepackage[absolute,overlay]{textpos}
@@ -10,39 +19,52 @@
 \setlength{\TPVertModule}{1cm}
 
 \makeatletter
-\def\ps@monash{%
-\begin{textblock}{4}(2,1)
-\includegraphics[height=1.5cm]{monash2}
+% Define the CAST page style
+\def\ps@CAST{%  <--- RENAMED from 'monash'
+\begin{textblock}{4}(2,1) % Position for CAST logo
+\includegraphics[height=1.5cm]{CAST_scripted_PRIMARY} % This is the standard college banner
 \end{textblock}%
-\begin{textblock}{4}(17,1)
-\includegraphics[height=1.5cm]{MBSportrait}
-\end{textblock}%
-\begin{textblock}{10}(1.2,26.4)
+% --- Commented out Monash Business School logo ---
+%\begin{textblock}{4}(17,1)
+%\includegraphics[height=1.5cm]{MBSportrait}
+%\end{textblock}%
+% --- Footer block ---
+\begin{textblock}{10}(1.2,26.4) % Position for footer text
 {\fontsize{9}{8}\selectfont\sffamily\color[gray]{0.4}%
 \begin{tabular}{@{}l@{}}
+% --- Quarto variables for author details ---
 \textbf{$for(authors)$$it.name.literal$$endfor$}, $if(qualifications)$$qualifications$$endif$\\
 $if(position)$$position$\\$endif$
-Department of Econometrics \& Business Statistics\\
-Monash University, Victoria 3800, Australia.\\[0.15cm]
+% CAST default info for CIIO
+Cyber, Intelligence, \& Information Operations \\ % e.g., Department of Cyber Operations
+College of Applied Science and Technology \\
+University of Arizona \\
+888 N Euclid Ave, Suite 123, Tucson, AZ 85721 \\ % e.g. 1140 N Colombo Ave, Sierra Vista, AZ 85635 (Check correct address for letters)
+\\[0.15cm] % Space before contact info
+% --- Quarto variables for contact ---
 $if(email)$\faicon{envelope} $email$\quad$endif$
 $if(phone)$\faicon{phone} $phone$\quad$endif$
 $if(www)$\faicon{home} $www$$endif$\\[0.1cm]
-ABN: 12 377 614 012\quad CRICOS Provider Number: 00008C
+% Space to add miscellaneous info like codes. Example:
+% ABN: 12 377 614 012\quad CRICOS Provider Number: 00008C
 \end{tabular}}
 \end{textblock}%
-\begin{textblock}{7}(12.7,28.2)\hfill
-\includegraphics[height=0.6cm]{AACSB}~~~
-\includegraphics[height=0.6cm]{EQUIS}~~~
-\includegraphics[height=0.6cm]{AMBA}
-\end{textblock}
-\def\thepage{}}
+% --- Add accreditation logos if desired. Examples: ---
+%\begin{textblock}{7}(12.7,28.2)\hfill
+%\includegraphics[height=0.6cm]{AACSB}~~~
+%\includegraphics[height=0.6cm]{EQUIS}~~~
+%\includegraphics[height=0.6cm]{AMBA}
+%\end{textblock}
+\def\thepage{} % Suppress page number on first page with this style
+} % End of \ps@CAST definition
 
+% Now use the CAST definition
 \@ifundefined{opening}{}{%
-\renewcommand*{\opening}[1]{\thispagestyle{monash}%
-  \enlargethispage*{-2cm}
-   \vspace*{1.2cm}{\@date\par}%
-  \vspace{2\parskip}%
-  {\raggedright \toname \\ \toaddress \par}%
-  \vspace{2\parskip}%
-  #1\par\nobreak}}
+\renewcommand*{\opening}[1]{\thispagestyle{CAST}%
+  \enlargethispage*{-2cm} % Adjust page height if needed
+   \vspace*{1.2cm}{\@date\par}% Space for date
+  \vspace{2\parskip}% Space before recipient
+  {\raggedright \toname \\ \toaddress \par}% Recipient details
+  \vspace{2\parskip}% Space before opening salutation
+  #1\par\nobreak}} % The opening salutation (e.g., Dear Sir/Madam)
 \makeatother

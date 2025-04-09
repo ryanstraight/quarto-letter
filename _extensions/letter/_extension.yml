@@ -8,7 +8,7 @@ contributes:
       documentclass: letter
       pdf-engine: pdflatex
       date: today
-      date-format: "YYYY MM DD"
+      date-format: "dddd, D MMM, YYYY"
       papersize: a4
       fontsize: 11pt
       geometry:
@@ -23,7 +23,8 @@ contributes:
         - "before-title.tex"
       format-resources:
         - CAST_scripted_PRIMARY.png
-        - MBSportrait.jpg
-        - EQUIS.png
-        - AMBA.png
-        - AACSB.png
+        - sigfile.png
+        #- MBSportrait.jpg
+        #- EQUIS.png
+        #- AMBA.png
+        #- AACSB.png
